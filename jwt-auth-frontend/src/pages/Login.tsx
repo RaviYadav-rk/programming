@@ -13,7 +13,6 @@ import {
   CheckCircle2,
   Shield,
   KeyRound,
-  X,
 } from "lucide-react";
 import { AuthLayout } from "../components/AuthLayout";
 
@@ -26,9 +25,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [showForgotModal, setShowForgotModal] = useState(false);
-  const [resetEmail, setResetEmail] = useState("");
-  const [resetSent, setResetSent] = useState(false);
 
   const navigate = useNavigate();
 
@@ -86,17 +82,6 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleResetSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setResetSent(true);
-    setTimeout(() => {
-      setShowForgotModal(false);
-      setResetSent(false);
-      setResetEmail("");
-      setSuccess(`Password recovery email dispatched.`);
-    }, 1500);
   };
 
   return (
@@ -192,13 +177,12 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <button
-                  type="button"
-                  onClick={() => setShowForgotModal(true)}
+                <Link
+                  to="/forgot-password"
                   className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline"
                 >
                   Forgot password?
-                </button>
+                </Link>
               </div>
               <div className="relative group">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 group-focus-within:text-indigo-400 transition-colors">
@@ -339,56 +323,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
-      {/* Forgot Password Modal */}
-      {showForgotModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-card-entrance">
-          <div className="relative w-full max-w-sm rounded-2xl enterprise-card p-5 text-white shadow-2xl">
-            <button
-              onClick={() => setShowForgotModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg"
-            >
-              <X className="h-4 w-4" />
-            </button>
-
-            <div className="flex items-center gap-2.5 mb-3.5">
-              <div className="h-8 w-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-                <KeyRound className="h-4 w-4" />
-              </div>
-              <div>
-                <h3 className="text-sm font-bold text-white">Reset Password</h3>
-                <p className="text-[10px] text-slate-400">
-                  Receive a cryptographically signed recovery token
-                </p>
-              </div>
-            </div>
-
-            <form onSubmit={handleResetSubmit} className="space-y-3">
-              <div className="space-y-1">
-                <label className="text-[10px] font-semibold uppercase text-slate-300 tracking-wider">
-                  Verification Email
-                </label>
-                <input
-                  type="email"
-                  value={resetEmail || email}
-                  onChange={(e) => setResetEmail(e.target.value)}
-                  placeholder="name@company.com"
-                  required
-                  className="w-full rounded-xl enterprise-input py-2 pl-3 pr-3 text-xs text-white placeholder-slate-500 focus:outline-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={resetSent}
-                className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 py-2 text-xs font-semibold text-white transition-all cursor-pointer"
-              >
-                {resetSent ? "Dispatching..." : "Send Recovery Link"}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </AuthLayout>
   );
 };
