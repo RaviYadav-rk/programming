@@ -64,7 +64,7 @@ const Login = () => {
       if (response.data?.token) {
         localStorage.setItem("token", response.data.token);
       }
-      setSuccess("Authentication verified. Redirecting to your dashboard...");
+      setSuccess("Authentication verified. Redirecting...");
       fireSuccessConfetti();
       setTimeout(() => {
         console.log("Logged in successfully!");
@@ -78,10 +78,10 @@ const Login = () => {
           password,
         });
         localStorage.setItem("demo_token", "jwt_mock_token_sec_key_9981x");
-        setSuccess("Demo Mode: Authenticated with secure mock token.");
+        setSuccess("Demo Mode: Authenticated with mock token.");
         fireSuccessConfetti();
       } else {
-        setError("Invalid email or password credentials. Please try again.");
+        setError("Invalid credentials. Please verify your email and password.");
       }
     } finally {
       setLoading(false);
@@ -95,8 +95,8 @@ const Login = () => {
       setShowForgotModal(false);
       setResetSent(false);
       setResetEmail("");
-      setSuccess(`Password recovery email dispatched to ${resetEmail || email || "your inbox"}.`);
-    }, 1800);
+      setSuccess(`Password recovery email dispatched.`);
+    }, 1500);
   };
 
   return (
@@ -105,45 +105,45 @@ const Login = () => {
         {/* Subtle Ambient Backlight */}
         <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-b from-indigo-500/20 to-purple-500/0 blur-xl pointer-events-none" />
 
-        <div className="relative rounded-3xl enterprise-card p-7 sm:p-9 text-white">
+        <div className="relative rounded-2xl enterprise-card p-5 sm:p-6 text-white">
           {/* Form Header */}
-          <div className="mb-6">
+          <div className="mb-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold tracking-tight text-white">
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
                   Account Sign In
                 </h2>
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-0.5 text-xs text-slate-400">
                   Enter your verified credentials to access your session
                 </p>
               </div>
 
-              <div className="h-10 w-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-                <KeyRound className="h-5 w-5" />
+              <div className="h-9 w-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
+                <KeyRound className="h-4 w-4" />
               </div>
             </div>
 
             {/* Seamless Tab Switcher */}
-            <div className="mt-5 grid grid-cols-2 p-1 rounded-xl bg-slate-900/80 border border-white/5 text-xs font-semibold">
+            <div className="mt-3.5 grid grid-cols-2 p-1 rounded-xl bg-slate-900/80 border border-white/5 text-xs font-semibold">
               <button
                 type="button"
-                className="py-2 rounded-lg bg-indigo-600 text-white shadow-sm transition-all"
+                className="py-1.5 rounded-lg bg-indigo-600 text-white shadow-sm transition-all"
               >
                 Sign In
               </button>
               <button
                 type="button"
                 onClick={() => navigate("/signup")}
-                className="py-2 rounded-lg text-slate-400 hover:text-white transition-all"
+                className="py-1.5 rounded-lg text-slate-400 hover:text-white transition-all"
               >
                 Create Account
               </button>
             </div>
           </div>
 
-          {/* Error Message with Shake Animation */}
+          {/* Error Message */}
           {error && (
-            <div className="mb-5 flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs text-rose-300 animate-shake">
+            <div className="mb-3.5 flex items-start gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 p-2.5 text-xs text-rose-300 animate-shake">
               <AlertCircle className="h-4 w-4 shrink-0 text-rose-400 mt-0.5" />
               <span className="flex-1">{error}</span>
             </div>
@@ -151,24 +151,24 @@ const Login = () => {
 
           {/* Success Message */}
           {success && (
-            <div className="mb-5 flex items-start gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-300">
+            <div className="mb-3.5 flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-2.5 text-xs text-emerald-300">
               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400 mt-0.5" />
               <span className="flex-1">{success}</span>
             </div>
           )}
 
           {/* Form Fields */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3">
             {/* Email Address */}
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <label
                 htmlFor="email"
-                className="block text-xs font-semibold tracking-wider uppercase text-slate-300"
+                className="block text-[11px] font-semibold tracking-wider uppercase text-slate-300"
               >
                 Work Email
               </label>
               <div className="relative group">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 group-focus-within:text-indigo-400 transition-colors">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 group-focus-within:text-indigo-400 transition-colors">
                   <Mail className="h-4 w-4" />
                 </div>
                 <input
@@ -178,30 +178,30 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@company.com"
                   required
-                  className="w-full rounded-xl enterprise-input py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none"
+                  className="w-full rounded-xl enterprise-input py-2 pl-9 pr-3 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Password Field */}
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-xs font-semibold tracking-wider uppercase text-slate-300"
+                  className="block text-[11px] font-semibold tracking-wider uppercase text-slate-300"
                 >
                   Password
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowForgotModal(true)}
-                  className="text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline"
+                  className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative group">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 group-focus-within:text-indigo-400 transition-colors">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 group-focus-within:text-indigo-400 transition-colors">
                   <Lock className="h-4 w-4" />
                 </div>
                 <input
@@ -213,12 +213,12 @@ const Login = () => {
                   onKeyUp={handleKeyDown}
                   placeholder="••••••••••••"
                   required
-                  className="w-full rounded-xl enterprise-input py-2.5 pl-10 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none font-mono tracking-wider"
+                  className="w-full rounded-xl enterprise-input py-2 pl-9 pr-9 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none font-mono tracking-wider"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
                   tabIndex={-1}
                   title={showPassword ? "Hide password" : "Show password"}
                 >
@@ -232,7 +232,7 @@ const Login = () => {
 
               {/* Caps Lock Alert */}
               {capsLockActive && (
-                <div className="flex items-center gap-1.5 text-[11px] text-amber-400 pt-1">
+                <div className="flex items-center gap-1.5 text-[10px] text-amber-400 pt-0.5">
                   <AlertCircle className="h-3 w-3" />
                   <span>Caps Lock is ON</span>
                 </div>
@@ -241,7 +241,7 @@ const Login = () => {
 
             {/* Remember Me */}
             <div className="flex items-center justify-between pt-0.5">
-              <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300 select-none">
+              <label className="flex items-center gap-2 cursor-pointer text-[11px] text-slate-300 select-none">
                 <input
                   type="checkbox"
                   checked={rememberMe}
@@ -256,7 +256,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="enterprise-btn group relative w-full rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 active:scale-[0.99] disabled:opacity-60 cursor-pointer transition-all mt-2"
+              className="enterprise-btn group relative w-full rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-md shadow-indigo-600/20 active:scale-[0.99] disabled:opacity-60 cursor-pointer transition-all mt-1"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 {loading ? (
@@ -274,24 +274,24 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Enterprise SSO Divider */}
-          <div className="relative my-6 flex items-center justify-center">
+          {/* SSO Divider */}
+          <div className="relative my-3.5 flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-white/5" />
             </div>
-            <div className="relative bg-[#0d1321] px-3 text-[11px] text-slate-500 uppercase tracking-wider font-medium">
+            <div className="relative bg-[#0d1321] px-2.5 text-[10px] text-slate-500 uppercase tracking-wider font-medium">
               Or authenticate with
             </div>
           </div>
 
           {/* Social / SSO Auth */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2.5">
             <button
               type="button"
-              onClick={() => alert("Enterprise Google Workspace SSO initiated.")}
-              className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] py-2 px-3 text-xs font-semibold text-slate-300 hover:bg-white/[0.07] hover:text-white transition-all cursor-pointer"
+              onClick={() => alert("Google Workspace SSO initiated.")}
+              className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] py-1.5 px-3 text-[11px] font-semibold text-slate-300 hover:bg-white/[0.07] hover:text-white transition-all cursor-pointer"
             >
-              <svg className="h-4 w-4" viewBox="0 0 24 24">
+              <svg className="h-3.5 w-3.5" viewBox="0 0 24 24">
                 <path
                   fill="#EA4335"
                   d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
@@ -315,19 +315,19 @@ const Login = () => {
             <button
               type="button"
               onClick={() => alert("GitHub Enterprise Auth initiated.")}
-              className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] py-2 px-3 text-xs font-semibold text-slate-300 hover:bg-white/[0.07] hover:text-white transition-all cursor-pointer"
+              className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] py-1.5 px-3 text-[11px] font-semibold text-slate-300 hover:bg-white/[0.07] hover:text-white transition-all cursor-pointer"
             >
-              <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
+              <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
               </svg>
               <span>GitHub</span>
             </button>
           </div>
 
-          {/* Security Assurance Footer note */}
-          <div className="mt-7 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400">
+          {/* Footer note */}
+          <div className="mt-4 pt-2.5 border-t border-white/5 flex items-center justify-between text-[10px] text-slate-400">
             <span className="flex items-center gap-1.5">
-              <Shield className="h-3.5 w-3.5 text-indigo-400" />
+              <Shield className="h-3 w-3 text-indigo-400" />
               <span>TLS 1.3 Cryptographic Channel</span>
             </span>
             <Link
@@ -343,7 +343,7 @@ const Login = () => {
       {/* Forgot Password Modal */}
       {showForgotModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-card-entrance">
-          <div className="relative w-full max-w-sm rounded-2xl enterprise-card p-6 text-white shadow-2xl">
+          <div className="relative w-full max-w-sm rounded-2xl enterprise-card p-5 text-white shadow-2xl">
             <button
               onClick={() => setShowForgotModal(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg"
@@ -351,21 +351,21 @@ const Login = () => {
               <X className="h-4 w-4" />
             </button>
 
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-9 w-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <div className="flex items-center gap-2.5 mb-3.5">
+              <div className="h-8 w-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
                 <KeyRound className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white">Reset Password</h3>
-                <p className="text-[11px] text-slate-400">
+                <h3 className="text-sm font-bold text-white">Reset Password</h3>
+                <p className="text-[10px] text-slate-400">
                   Receive a cryptographically signed recovery token
                 </p>
               </div>
             </div>
 
-            <form onSubmit={handleResetSubmit} className="space-y-3.5">
+            <form onSubmit={handleResetSubmit} className="space-y-3">
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold uppercase text-slate-300 tracking-wider">
+                <label className="text-[10px] font-semibold uppercase text-slate-300 tracking-wider">
                   Verification Email
                 </label>
                 <input
@@ -381,7 +381,7 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={resetSent}
-                className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 py-2.5 text-xs font-semibold text-white transition-all cursor-pointer"
+                className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 py-2 text-xs font-semibold text-white transition-all cursor-pointer"
               >
                 {resetSent ? "Dispatching..." : "Send Recovery Link"}
               </button>

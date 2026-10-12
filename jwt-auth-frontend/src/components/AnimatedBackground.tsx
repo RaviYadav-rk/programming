@@ -136,7 +136,7 @@ export const AnimatedBackground = () => {
       />
 
       {/* Smooth Particle Canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
     </div>
   );
 };
